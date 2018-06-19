@@ -1,7 +1,7 @@
 require 'yaml'
 
 namespace :update_db do
-  desc 'TODO'
+  desc 'Updates the db with all of the new articles written'
   task add_articles: :environment do
     path = File.join(Rails.root, 'articles.yml')
 
@@ -13,8 +13,22 @@ namespace :update_db do
     end
   end
 
-  task :delete_articles, [:title] => :environment do |t, args|
-    Article.find_by(title: args[:title]).destroy
+  task :delete_article, [:title] => :environment do |t, args|
+    if Article.find_by(title: args[:title]).destroy
+      puts 'Article successfully destroyed'
+    else
+      puts "There's had been an issue...lord knows"
+    end
+  end
+
+  task :update_article, [:article_title, :entity, :new_content] => :environment do |t, args|
+    if Article.find_by(title: args[:article_title]).update!(args[:entity] =>
+                                                            args[:new_content])
+      puts "#{args[:article_title]} was updated"
+    else
+      puts "Me thinks there be an issue with your
+            so called #{args[:article_title]} article"
+    end
   end
 
   private
