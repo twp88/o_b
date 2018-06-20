@@ -18,15 +18,13 @@
        <div class="col-lg-9">
          <div class="row">
 
-           <%= @articles.map do |article| %>
+           <% @articles.each do |article| %>
              <div class="col-lg-4 col-md-6 mb-4">
                <div class="card" style="width:200px">
                  <img class="card-img-top" src="https://images.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.JZ7TVsnULJMWTdm34fuN9AHaE8%26pid%3D15.1&f=1" alt="Card image">
                 <div class="card-body">
-                  <h4 class="card-title"><%= article.title %></h4>
+                  <h4 class="card-title"><%= link_to article.title, article_path(article) %></h4>
                   <p class="card-text"><%= article.description %></p>
-                  <a href="#" class="card-link">Card link</a>
-                  <a href="#" class="card-link">Another link</a>
                 </div>
               </div>
              </div>
