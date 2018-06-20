@@ -1,4 +1,69 @@
-<% if @articles.any? %>
+ <body>
+   <!-- Side Info Bar-->
+   <div class="container">
+
+     <div class="row">
+
+       <div class="col-lg-3">
+
+         <h1 class="my-4">BupBups</h1>
+         <div class="list-group">
+           <a href="#" class="list-group-item">Category 1</a>
+           <a href="#" class="list-group-item">Category 2</a>
+           <a href="#" class="list-group-item">Category 3</a>
+         </div>
+
+       </div>
+       <!-- Tiles of Articles -->
+       <div class="col-lg-9">
+         <div class="row">
+
+           <%= @articles.map do |article| %>
+             <div class="col-lg-4 col-md-6 mb-4">
+               <div class="card" style="width:200px">
+                 <img class="card-img-top" src="https://images.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.JZ7TVsnULJMWTdm34fuN9AHaE8%26pid%3D15.1&f=1" alt="Card image">
+                <div class="card-body">
+                  <h4 class="card-title"><%= article.title %></h4>
+                  <p class="card-text"><%= article.description %></p>
+                  <a href="#" class="card-link">Card link</a>
+                  <a href="#" class="card-link">Another link</a>
+                </div>
+              </div>
+             </div>
+           <% end %>
+         </div>
+        </div>
+     <!-- /.row -->
+   </div>
+   <!-- /.container -->
+
+   <!-- Footer -->
+   <!-- <footer class="py-5 bg-dark">
+     <div class="container">
+       <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+     </div>
+     <!-- /.container -->
+   </footer> -->
+
+   <!-- Bootstrap core JavaScript -->
+   <script src="vendor/jquery/jquery.min.js"></script>
+   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+ </body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+<!-- <% if @articles.any? %>
   <% @articles.each do |article| %>
     <div class="col-md-6">
       <h2><%= link_to "#{article.title}", "/article/#{article.id}" %></h2>
@@ -8,4 +73,4 @@
   <% end %>
 <% else%>
   <%= 'There are no articles to show' %>
-<% end %>
+<% end %> -->
