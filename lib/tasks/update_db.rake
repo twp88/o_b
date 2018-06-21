@@ -6,7 +6,7 @@ namespace :update_db do
     path = File.join(Rails.root, 'articles.yml')
 
     if File.exist?(path)
-      data = YAML::load(File.open(path))
+      data = YAML.safe_load(File.open(path))
       add_articles(data)
     else
       puts 'File can not be found'
@@ -41,6 +41,8 @@ namespace :update_db do
         Article.create(title: article['title'],
                        description: article['description'],
                        act_text: article['act_text'])
+
+        puts 'Article added'
       end
     end
   end

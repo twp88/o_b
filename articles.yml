@@ -1,8 +1,54 @@
-- title: First Awesome Automated Blog
-  description: This is the first blog to have been uploaded like this
-  act_text: Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah v blah blah blah blah blah blah
-- title: Second Awesome Automated Blog
-  description: This is the second blog to have been uploaded like this
-  act_text: Blah blah blah blah blah blah blah blah blah
-            blah blah blah blah blah blah blah
-            v blah blah blah blah blah blah
+- title: How to paginate without using pagination
+  description: What happens when you need to break down your requests.
+  act_text: |+
+    ‘Long time no write!’ or words to that effect are things the things that I have probably most often written across all of the blogs that I have ever started. Bad habits and all that. Pre-New Years, New Years resolution; update this blog once a week.
+    So, pagination. I recently found myself writing myself a databaseless application whose primary purpose was to make a whole load of api calls, parse that data and put it all onto one screen. Fantisch! Sur gud! Nein…..
+    The nub of the issue was that this app was potentially going to be be making some big requests. Big is relative, but I mean potentially thousands or hundreds of thousands of requests would all be made by my little old application. This brought about two different problems;
+
+    What if I crashed the other servers that I was making all these requests to?
+    What was I to do with all this data?
+    Solution? Limit the number of requests made depending on the page number that was being looked at. Pagination (sort of)!
+
+    To the uninitiated, pagination is a way of taking that large chunk of data from your database that you wish to show, and chopping it up into smaller bits so that some of it at a time can be viewed on a page.
+
+
+    But wait, you said your application was databaseless! Yup…
+
+    In rails the go to gem for pagination is will_paginate. This useful little gem will take all of the data, and then cleverly limit the amount of it that you get to see per page. It looked great! Basic usage looked simple but effective, slotting straight into rails. But then I didn’t get to try it out though, did I? I didn’t have a database.
+
+    What to do? Write my own solution!
+
+    The concept of pagination isn’t that difficult. You have two numbers; the number of results you wish to show per page and your page number. It then effectively works like a sliding scale. The calculation is a question of working what proportion of the data corresponds to the correct page. That proportion, or better yet range, must include an upper and lower limit. This upper and lower limit will of course be different for each page.
+
+    For example; I have one hundred data points, and I wish to show ten point per page. For page one my lower limit will be 1, and the upper would 10. Page two would be 11 to 20 etc etc.
+
+    This is the solution that I came up with;
+
+
+    This solution takes an array of ids. It then works out what the lower and upper limits are of each page. Map is then called on the range created by the upper and lower limits. For each number within that range the id array is called and passed that number as an index. Because it’s map, each result is returned in an array.
+
+    This solution can then be used as a module or a service, to be called from anywhere else within your app.
+
+- title: Enter the Meta
+  description: |+
+    When you can't sleep and you work on your blog project, only to discover something
+    and start to write about it. On your blog.
+  act_text: |+
+    I knew that we were going to get to this stage, but I hadn't invisaged that
+    it would be at 02:10 in the morning. So there I am trying to sleep, and all
+    I can think of is yaml text formatting, and workflow for publishing a piece
+    to my new blog...
+
+    The problem lies in formatting the text elegantly so that it looks nice on
+    the page. This blog is somewhat, well I'm trying to think of other words than
+    "dirt bag esk", "slap dash", or "gangster". I'm trying out new ways of doing
+    things. It's fun!
+
+    Turns out that strings in rails aren't always presented 'correctly'. Some
+    of the formatting gets destroyed. In my case I couldn't make rails play nicely
+    with end of line breaks. Until I disovered TextHelper from ActiveView.
+
+    By typing simple_format(@article.act_text), it suddenly sits up and pays attention.
+    I found it here; https://stackoverflow.com/questions/24845995/automatically-add-paragraphs-in-rails
+
+    Pretty cool! Something worth investigating more. Good night.

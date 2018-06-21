@@ -1,5 +1,7 @@
-<% if @article %>
-  <h2><%= @article.title %></h2>
-  <h3><%= @article.description %></h3>
-  <p><%= @article.act_text %></p>
-<% end %>
+<div style="margin:50px;">
+  <% if @article %>
+    <h2><%= @article.title %></h2>
+    <h3><%= @article.description %></h3>
+    <p><%= simple_format(@article.act_text) %></p>
+  <% end %>
+</div>
