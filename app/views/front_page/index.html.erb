@@ -7,27 +7,17 @@
        <div class="col-lg-3">
 
          <img src="https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fnetdna.webdesignerdepot.com%2Fuploads%2F2013%2F11%2Fpicjumbo.com_IMG_9857.jpg&f=1" style="width:200px; height:200px; margin-top:10px; margin-bottom:20px;"/>
-         <div class="list-group">
-           <p class="list-group-item"><%= link_to( image_tag("https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F2016%2F07%2FTwitter-PNG-HD-1.png&f=1", :style => "width:50px;height:50px;"),"https://twitter.com/88pwt")%></p>
-           <p class="list-group-item"><%= link_to( image_tag("https://images.duckduckgo.com/iu/?u=https%3A%2F%2Fmajor.io%2Fwp-content%2Fuploads%2F2014%2F08%2Fgithub.png&f=1", :style => "width:50px;height:50px;"),"https://github.com/twp88")%></p>
-           <p class="list-group-item"><%= link_to( image_tag("https://images.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.underconsideration.com%2Fbrandnew%2Farchives%2Fmedium_2017_monogram.png&f=1", :style => "width:50px;height:50px;"),"https://medium.com/@88pwt")%></p>
+         <div class="list-group" style="width:200px;">
+           <p class="list-group-item"><%= @about_me %></p>
          </div>
 
        </div>
-       <!-- Tiles of Articles -->
-       <div class="col-lg-9">
          <div class="row">
-
            <% @articles.each do |article| %>
-             <div class="col-lg-4 col-md-6 mb-4">
-               <div class="card" style="width:200px; margin:20px; border:30px;">
-                 <!-- <img class="card-img-top" src="https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fnetdna.webdesignerdepot.com%2Fuploads%2F2013%2F11%2Fpicjumbo.com_IMG_9857.jpg&f=1" alt="Card image" style="width:150px; margin-bottom:10px; margin-top:10px;"> -->
-                <div class="card-body">
-                  <h4 class="card-title"><%= link_to article.title, article_path(article) %></h4>
-                  <p class="card-text"><%= article.description %></p>
-                </div>
-              </div>
-             </div>
+            <article class='article' style='margin-left:250px; margin-right:50px;'>
+              <h2><%= link_to article.title, article_path(article) %></h2>
+              <p><%= "#{article.act_text[0...200]}..." %></p>
+            </article>
            <% end %>
          </div>
         </div>
