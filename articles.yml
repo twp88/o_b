@@ -28,10 +28,8 @@
     This solution takes an array of ids. It then works out what the lower and upper limits are of each page. Map is then called on the range created by the upper and lower limits. For each number within that range the id array is called and passed that number as an index. Because it’s map, each result is returned in an array.
 
     This solution can then be used as a module or a service, to be called from anywhere else within your app.
-
 - title: Enter the Meta
-  description: |+
-    When you can't sleep and you work on your blog project, only to discover something
+  description: When you can't sleep and you work on your blog project, only to discover something
     and start to write about it. On your blog.
   act_text: |+
     I knew that we were going to get to this stage, but I hadn't invisaged that
@@ -52,3 +50,43 @@
     I found it here; https://stackoverflow.com/questions/24845995/automatically-add-paragraphs-in-rails
 
     Pretty cool! Something worth investigating more. Good night.
+- title: Webpack oh my fack...
+  describe: What happened when a poor young innocent boy was sent off into the wilderness
+      of Webpack, and came back a man.
+  act_text: |+
+      Rightly or wrongly I've spent the majority of my coding career in the dark about
+      webpack, what it is, and how it works. My excuse? Well I'm a backend engineer,
+      ain't I? But more on that later.
+
+      This changes now, particularly as I wade into the mire that is using React
+      with Rails.
+
+      In turns out that there are a variety of ways to do this. One is use the
+      react_rails gem. This is a bit 'old' now, as it was originally written to
+      support ES5, but it does also support ES6. A tell tell give away sign is how
+      initially one had to save an es6 file with the .es6.jsx extension.
+
+      Another way to solve the problem would be to essentially write two
+      applications which communicate over an api. These two appications would
+      literally be backend and frontend. The front would use something like
+      webpack and would make requests to a rails backend server using pre thoughtout
+      end points, which could return things in JSON.
+
+      I digress. Webpack being used in the same webapp as the rails backend, using
+      the react_on_rails gem. To be able to understand this, first we must understand
+      what webpack actually is.
+
+      In short it is a bundler. A piece of software which sorts out a webapps
+      dependencies, the versions that they require. It then creates modules for
+      these dependencies, before bundling the entire network up into some form of
+      output file.
+
+      When using react_on_rails this bundled file is then included within the asset
+      pipeline. The asset what???
+
+      So this is where is could potentially get a bit meta. Rails has something called
+      the asset pipeline which gathers up all the JavaScripts which are referenced
+      at specific places from within the app, before bundling it all together into something
+      called the manifest.
+
+      What exactly is this manifest then, I hear you ask...
