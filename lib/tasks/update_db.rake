@@ -32,6 +32,16 @@ namespace :update_db do
     end
   end
 
+  task update_articles: :environment do
+    path = File.join(Rails.root, 'articles.yml')
+
+    if File.exist?(path)
+      file = File.open(path)
+      data = YAML.safe_load(file)
+      update_all_articles(data)
+    end
+  end
+
   private
 
   def add_articles(data)
@@ -44,6 +54,16 @@ namespace :update_db do
                        act_text: article['act_text'])
 
         puts 'Article added'
+      end
+    end
+  end
+
+  def update_all_articles(data)
+    data.each do |article|
+      if art = Article.find_by(title: article['title'])
+        art.update(act_text: article['act_text']) if art.act_text != article['act_text']
+      else
+        puts 'Something went wrong, or no need to update'
       end
     end
   end

@@ -90,3 +90,38 @@
       called the manifest.
 
       What exactly is this manifest then, I hear you ask...
+
+      The assets file is compiled of app/assets, lib/assets and vendor/assets
+
+      Vendor is for things which are not maintained by me.
+      Lib is maintained by me, or used accross applications.
+
+      Asset pipeline is just a bunch of load paths for stuff in the app.
+
+      Ruby gems and bundler are now able to organise/manage other assets as well as
+      ruby, i.e. javascript in order to take advantage of bundler and the dependency
+      managemenet that it provides.
+
+      These gems that are added to the app, will be added to the assets load path.
+      For example, if you add the react_rails gem using bundler you would then add
+      '//= require react' to application.js as react would then be available through
+      the assets load path.
+
+      So the manifest compiles the file which is sent back when requested by the user.
+      Inside the application.js there are a whole load of files which
+      are requested which are made available to it by the load paths inside the assets.
+
+      Sprockets compiles all of the files together and sends them all back to the user
+      when they are requested.
+
+      How does webpack come into play with all of this then? Well webpack as a bundler
+      bundles all of the dependencies that it takes care of, producing a bundle file.
+      This bundle file is then required into the application.js file, as well as the
+      webpacker gem being downloaded. So in essence what you have a is a Russian
+      Doll bundler situation. Webpacker is a bundler that takes care of JavaScript
+      dependencies. To be able to use it, you must use ruby gems and bundler, which
+      is a bundler to download it. Then, when using it, it is added to the asset
+      pipeline so that the bundle can then be bundled into a larger bundle (the manifest)
+      and served to the user when any of the dependicies are requested. This is why
+      react can be removed from the application.jo file when using webpack,
+      as react is one of the dependicies that webpack manages.
