@@ -125,3 +125,106 @@
       and served to the user when any of the dependicies are requested. This is why
       react can be removed from the application.jo file when using webpack,
       as react is one of the dependicies that webpack manages.
+
+- title: When it hits the fan — Git Bisect Automation is there for you.
+  description: When it's THAT bad, it might not be.
+  act_text: |+
+      Let’s set the scene. You have a deadline tomorrow. It’s 3 am, which
+      technically means that you have a deadline today. This project was
+      going great until about 10 hours ago…
+
+      In the beginning you were the very epitome of the TDD developer.
+      You wouldn’t so much as assign a variable unless there was a test for it.
+      Now, as time runs through your cupped hands like your Grandmothers homemade
+      custard, you’re telling yourself that you’re more principled, that you’re
+      focussing on what really matters- getting the thing finished.
+
+      So you’re storming through it now, slaying ticket after ticket. Commit
+      after commit goes past, like a line of bottles on a wall. Ten, twenty,
+      thirty beautifully written commits get pushed. The few tests that you do
+      actually have, still pass. Looks like you’re going to make that deadline
+      after all!
+
+      Hold on, you say. Lets just see what this master piece looks like if you
+      add another test…bboooommm!
+
+      UhOh. An obscure and unhelpful error message greets you, and you realise
+      that you have no.idea.where.to.start. Your aching eyes glance at the clock.
+      Time to give it all up, find a small place in the country and graze some
+      sheep, right? Wrong! Or at least not yet.
+
+      In flies the magical command git-Bisect, floating on cheap dry ice to save
+      you from your quandary, combined with the mythical (nothing mythical
+      about it) qualities of automation.
+
+      Your main problem resides in the fact that you have so many commits from
+      the past couple of hours, that it literally could have been any of them that
+      the problem, bug or issue was introduced. Resetting through each of these
+      commits to find the offending culprit would take hours. Unless, could there
+      be a way? Surely not!?
+
+      Git Bisect is a tool used for debugging. It’s essentially a binary search
+      which deduces which, out of a range of different commits, is the first commit
+      chronologically to have introduced issues into your project. What’s more,
+      it’s fairly straightforward to use.
+
+      Typically you would start by typing git bisect start followed by git bisect
+      good <commit-hash-number> using the hash number of any previous commit that
+      you know to be A-OK (like the very first one, if you’re really that stuck).
+      This will be followed by you typing git bisect bad <commit-hash-number> .
+      This will be to show git bisect the first commit which, you’ve guessed it,
+      you know to be bad(like the last one, if you’re really that stuck). In doing
+      so you will have created the range of commits that git bisect needs to do it’s stuff.
+
+      It can then start doing all of it’s binary search magic. You will be taken
+      on a magical mystery tour in a binary search fashion, through some of your
+      previous commits. Git Bisect will first checkout the commit which is roughly
+      in the middle of the range that you have given it. You will then be able to
+      check to see if the commit is good or bad, i.e. by running a test. Having done
+      so you will either type git bisect good or git bisect bad. In the case that it’s
+      good, git bisect will then halve the range of commits that came before the checked
+      out commit. In the case that it’s bad, it will then halve the remaining commits
+      which came after the checked out commit. On and on the process goes, until
+      the culprit is found.
+
+      What’s that I hear you say? Not automated enough? Messed this up sufficiently
+      that even the aforementioned process is still going to take forever and ever?
+      Well never fear…
+
+      This is where the automation section can really flex it’s muscle. The pain
+      point in using git bisect in this manual fashion comes when you (or your team)
+      have so many commits that the process of checking each commit becomes tedious.
+      Let’s think of a pointless, ridiculous analogy to give a good *cough* example of what I mean.
+
+      Imagine that you’ve been driving along the motorway (highway) for fifty hours.
+      Your car is terrible and so you’ve had to stop for petrol (gas) every hour.
+      You suddenly realise that at some specific petrol station along the way
+      there was an increase in the price of petrol, and that bizarrely this
+      price remained the same from that point onwards.
+
+      So outraged were you at this price change, you turn back deciding to find out
+      where the price changed and complain (the driver is probably British). This being
+      a ridiculous analogy, you travel straight back to the twenty fifth petrol station.
+      What remains is the process to find out how much the petrol costs, and work out if
+      it’s cheaper or more expensive, which in this universe is a long and arduous process.
+      One has to get out of the car, put on ones glasses, look at a sign, look at the piece of
+      paper in your hand and evaluate which price is greater, before potentially getting back
+      in the car and travelling to the twelfth/thirty seventh station and repeating the whole business.
+
+      To do this manually in computing terms would be tedious. But it’s ok, cos it’s a computer,
+      and we can write a script or use some code that can be deployed each time we arrive at
+      a station to simply give us a yes or no answer to the question; is it cheaper?
+
+      Having given git bisect the range through which it must search (git bisect good and bad),
+      we can then type git bisect run <script> , the <script> being just that, a script.
+      So here we could pass it the command to run a test, e.g. git bisect run rspec cool_test.rb.
+      Or if you’re really against it, something like git bisect run ruby cool_program.rb | grep 'expected output'
+      would also work. Why?
+
+      Having checked out each commit, git bisect run will (aha!) run whatever you’ve given it,
+      which will then return an exit code. If the code is ok, then it should return the exit
+      code of 0. If not, then it will return a code of anywhere between 1 and 125.
+      Thus, you can sit back and watch git bisect run take you through the entire process and dump
+      you at the correct petrol station. All that remains is for you to go and complain.
+
+      So there we have it. Git bisect. Potentially a fully automated project saver!
